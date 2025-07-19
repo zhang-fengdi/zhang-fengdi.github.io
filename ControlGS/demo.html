@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>3DGS Demo</title>
+  <script type="text/javascript" src="js/util.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./lib/three.module.js",
+      "@mkkellogg/gaussian-splats-3d": "./lib/gaussian-splats-3d.module.js"
+    }
+  }
+  </script>
+  <style>
+    body {
+      background: #ffffff;
+      color: #333;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+    }
+    #tab-container {
+      width: 820px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    #scene-tabs {
+      display: flex;
+      background: linear-gradient(90deg, #ececec, #f9f9f9);
+      border-bottom: 1px solid #ddd;
+    }
+    #scene-tabs button {
+      flex: 1;
+      padding: 12px 0;
+      background: transparent;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    #scene-tabs button:hover { background: #f0f0f0; }
+    #scene-tabs button.active {
+      background: #fff;
+      color: #000;
+      box-shadow: inset 0 -3px 0 #0078d4;
+    }
+    #mode-control {
+      width: 100%;
+      padding: 12px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fafafa;
+      border-bottom: 1px solid #ddd;
+      gap: 8px;
+    }
+    #mode-control label { 
+      font-weight: 500;
+      margin-right: -14px;
+      margin-top: -4px; /* 微调 Lambda 标签的纵向位置，向上移动 */
+    }
+    #mode-control span {
+      margin-left: -6px; /* 给 Lambda 数值增加一点左边间距 */
+      margin-top: -4px; /* 微调 Lambda 数值的位置，向上移动 */
+    }
+    #mode-control input[type="range"] {
+      width: 80%;
+      max-width: 400px;
+    }
+    #mode-control input[type="checkbox"] {
+      margin-left: 12px; /* 给复选框添加左间距 */
+      margin-top: 3px; /* 微调 Auto 复选框的位置，向上移动 */
+    }
+    #viewer-container {
+      width: 100%;
+      height: 400px;
+      background: #000;
+      position: relative;
+    }
+    #mode-control .auto-container {
+      display: flex;
+      align-items: center; /* 保证 Auto 标签和复选框在垂直方向居中 */
+      margin-left: 12px; /* 微调 Auto 容器的左边距 */
+    }
+
+    #mode-control .auto-container label {
+      margin-left: 0px; /* 给 Auto 标签增加左间距 */
+      margin-top: -4px;   /* 调整 Auto 标签的垂直位置，避免使用大的负值 */
+    }
+
+    #mode-control .auto-container input[type="checkbox"] {
+      margin-left: 18px; /* 控制 Auto 复选框与标签之间的间距 */
+    }
+
+    /* Status Hint: 右下角 */
+    #status-hint {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 10px 6.5px 10px;
+      border-radius: 4px;
+      pointer-events: none;
+      user-select: none;
+      display: none;
+    }
+    /* Gaussian Count: 左下角 */
+    #gaussian-count {
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 10px 6.5px 10px;
+      border-radius: 4px;
+      pointer-events: none;
+      user-select: none;
+      display: block;
+    }
+
+    /* 键盘/鼠标按键样式 */
+    kbd {
+      display: inline-block;
+      padding: 2px 4px;
+      margin-right: 4px;
+      background: #444;
+      color: #fff;
+      font-size: 11px;
+      border-radius: 3px;
+      box-shadow: inset 0 -1px 0 rgba(0,0,0,0.25);
+    }
+    /* 左上角控制提示 */
+    #control-hint {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    #control-hint span {
+      font-size: 14px;
+      line-height: 1;
+      color: #fff;
+      background: rgba(0,0,0,0.6);
+      padding: 4px;
+      border-radius: 4px;
+      display: flex;           /* 新增: 使用 Flexbox */
+      justify-content: center; /* 新增: 水平居中 */
+      align-items: center;     /* 新增: 垂直居中 */
+    }
+    /* 悬停显示的浮窗 */
+    #control-tooltip {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      display: none;
+      width: 180px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      font-size: 12px;
+      border-radius: 4px;
+      padding: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      pointer-events: none;
+    }
+    #control-hint:hover #control-tooltip {
+      display: block;
+    }
+    #control-tooltip ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    #control-tooltip li {
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    #control-tooltip li:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="tab-container">
+    <div id="scene-tabs"></div>
+    <div id="mode-control">
+      <label for="modeSlider">Lambda：</label>
+      <input type="range" id="modeSlider" />
+      <span id="modeLabel"></span>
+      <div class="auto-container">
+        <label for="auto-checkbox">Auto</label>
+        <input type="checkbox" id="auto-checkbox">
+      </div>
+    </div>
+    <div id="viewer-container">
+      <!-- 左上角控制提示 -->
+      <div id="control-hint">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+        </span>
+        <div id="control-tooltip">
+          <ul>
+            <li><strong>Mouse:</strong></li>
+            <li><kbd>LMB</kbd> Set focal point</li>
+            <li><kbd>LMB</kbd> + drag Orbit</li>
+            <li><kbd>RMB</kbd> + drag Pan</li>
+            <li><strong>Keys:</strong></li>
+            <li><kbd>C</kbd> Toggle cursor</li>
+            <li><kbd>I</kbd> Toggle info panel</li>
+            <li><kbd>U</kbd> Toggle debug axes</li>
+            <li><kbd>←</kbd>/ <kbd>→</kbd> Rotate up vector</li>
+            <li><kbd>P</kbd> Point-cloud mode</li>
+            <li><kbd>=</kbd> Increase scale</li>
+            <li><kbd>-</kbd> Decrease scale</li>
+            <li><kbd>O</kbd> Toggle orthographic</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 右下角状态提示 -->
+      <div id="status-hint"></div>
+      <!-- 左下角高斯数量 -->
+      <div id="gaussian-count"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
+    import { getRenderScores } from './js/performanceScores.js';  // 导入性能评分函数
+
+    const config = {
+      baseUrl: 'https://controlgs-data-1369614263.cos.ap-guangzhou.myqcloud.com/',
+      scenes: ['bicycle','bonsai','playroom','chair','lego'],
+      suffixes: ['_1e-7','_2e-7','_3e-7','_4e-7','_5e-7','_6e-7','_7e-7','_8e-7','_9e-7','_1e-6'],
+      modeLabels: ['1e-7','2e-7','3e-7','4e-7','5e-7','6e-7','7e-7','8e-7','9e-7','1e-6'],
+      sceneCameraPositions: [
+        { position:[-1.27716,0.53441,-0.83316], lookAt:[0.71582,1.70817,0.55085], cameraUp:[-0.04772,-0.97936,-0.19643], backgroundColor:'#000' },
+        { position:[1.74473,2.20126,-0.96763], lookAt:[0.46452,1.82883,1.45494], cameraUp:[-0.14246,-0.92664,-0.34792], backgroundColor:'#000' },
+        { position:[-2.17826,2.60359,-0.79266], lookAt:[0.4,1.9,1.4], cameraUp:[-0.11294,-0.87587,-0.46914], backgroundColor:'#000' },
+        { position:[0.11316,-2.48177,0.93802], lookAt:[0.03972,0.33785,-0.20732], cameraUp:[0.01468,0.07312,0.99722], backgroundColor:'#fff' },
+        { position:[0.0098,2.482,1.32968], lookAt:[0.07897,-0.17354,-0.17532], cameraUp:[-0.02215,0.45802,0.88866], backgroundColor:'#fff' }
+      ],
+      gaussianCounts:{
+        bicycle: [1.944,1.214,0.907,0.696,0.571,0.460,0.371,0.326,0.275,0.241],
+        bonsai:  [0.889,0.618,0.513,0.442,0.397,0.348,0.325,0.311,0.290,0.266],
+        playroom:[0.815,0.579,0.464,0.401,0.329,0.300,0.265,0.238,0.223,0.212],
+        chair:   [0.576,0.327,0.230,0.176,0.152,0.131,0.114,0.107,0.099,0.094],
+        lego:    [0.840,0.546,0.423,0.346,0.292,0.254,0.239,0.211,0.192,0.178]
+      }
+    };
+
+    const { scenes, suffixes, modeLabels, sceneCameraPositions, gaussianCounts } = config;
+    const p = new URLSearchParams(location.search);
+    let sceneIndex = +p.get('scene') || 0;
+    let modeIndex  = p.has('mode') ? +p.get('mode') : 2;
+    if (isNaN(modeIndex) || modeIndex<0 || modeIndex>=suffixes.length) modeIndex=2;
+
+    // tabs & slider
+    const tabs   = document.getElementById('scene-tabs');
+    const slider = document.getElementById('modeSlider');
+    const label  = document.getElementById('modeLabel');
+    const autoCheckbox = document.getElementById('auto-checkbox');
+    tabs.innerHTML = scenes.map((n,i)=>`<button data-i="${i}">${n}</button>`).join('');
+    tabs.querySelectorAll('button').forEach(b=>{
+      if (+b.dataset.i===sceneIndex) b.classList.add('active');
+      b.onclick = ()=> location.search = `?scene=${b.dataset.i}&mode=${modeIndex}`;
+    });
+    slider.min=0; slider.max=suffixes.length-1; slider.step=1; slider.value=modeIndex;
+    const upd=v=>label.textContent = modeLabels[v]||suffixes[v]||v;
+    upd(modeIndex);
+    slider.oninput = e=>upd(+e.target.value);
+    slider.onchange = e=>location.search = `?scene=${sceneIndex}&mode=${+e.target.value}`;
+
+    // viewer
+    const viewer = new GaussianSplats3D.Viewer({
+      rootElement: document.getElementById('viewer-container'),
+      sharedMemoryForWorkers: false,
+      freeIntermediateSplatData: true,
+      cameraUp: sceneCameraPositions[sceneIndex].cameraUp,
+      initialCameraPosition: sceneCameraPositions[sceneIndex].position,
+      initialCameraLookAt: sceneCameraPositions[sceneIndex].lookAt,
+      sphericalHarmonicsDegree: 2
+    });
+    viewer.renderer.setClearColor(sceneCameraPositions[sceneIndex].backgroundColor);
+    viewer.start();
+
+    // hints
+    const hint = document.getElementById('status-hint');
+    const gaussEl = document.getElementById('gaussian-count');
+    const setHint = (t,show)=>{ hint.textContent=t; hint.style.display=show?'block':'none'; };
+    const updateGauss = ()=>{
+      const cnt = gaussianCounts[scenes[sceneIndex]][modeIndex] * 1000;
+      gaussEl.textContent = `#Gaussians: ${cnt.toFixed(0)}k`;
+    };
+    updateGauss();
+
+    // load logic
+    async function loadScene(url, fmt){
+      const cache = await caches.open('3d-model-cache');
+      const hit = await cache.match(url);
+      if(hit){
+        setHint('',false);
+        const blob = await hit.blob();
+        await viewer.addSplatScene(URL.createObjectURL(blob),{ format:fmt, progressiveLoad:false, showLoadingUI:true });
+        return;
+      }
+      viewer.addSplatScene(url,{ format:fmt, progressiveLoad:true, showLoadingUI:true }).catch(console.error);
+      (async()=>{
+        try{
+          const resp = await fetch(url,{ cache:'reload', keepalive:true });
+          if(!resp.ok) throw new Error(resp.status);
+          setHint('Caching model…', true);
+          await cache.put(url, resp.clone());
+        }catch(e){
+          console.warn('Cache failed', e);
+        }finally{
+          setHint('', false);
+        }
+      })();
+    }
+
+    // Auto checkbox logic
+    autoCheckbox.addEventListener('change', async () => {
+      if (autoCheckbox.checked) {
+       // Call the getRenderScores function to get all performance scores
+        const scores = await getRenderScores(); // This will return an object with all scores
+
+        // Show the performance scores in an alert box
+        alert(`
+        Performance Scores:
+        CPU Cores: ${scores.cpuCores}
+        Device Type: ${scores.deviceType}
+        Benchmark FPS: ${scores.fps.toFixed(1)}
+        Mapped Score (0–1): ${scores.mappedScore}
+        Recommended Lambda: ${scores.recommendedLambda}
+        `);
+        
+        // Use the returned lambda value
+        const lambdaValue = scores.recommendedLambda;
+
+        // Set slider value and lock it
+        modeIndex = modeLabels.indexOf(lambdaValue.toString());
+        slider.value = modeIndex;
+        slider.disabled = true;
+        label.textContent = lambdaValue;
+
+        // Automatically change scene
+        location.search = `?scene=${sceneIndex}&mode=${modeIndex}`;
+        
+        // Save the slider disabled state and checkbox state
+        localStorage.setItem('sliderDisabled', 'true');
+        localStorage.setItem('autoChecked', 'true');
+      } else {
+        slider.disabled = false;
+
+        // Remove slider disabled state from localStorage
+        localStorage.removeItem('sliderDisabled');
+        localStorage.removeItem('autoChecked');
+      }
+    });
+
+    // Check slider state and checkbox state on page load (after refresh)
+    if (localStorage.getItem('sliderDisabled') === 'true') {
+      slider.disabled = true;
+    }
+    if (localStorage.getItem('autoChecked') === 'true') {
+      autoCheckbox.checked = true;
+    }
+
+    (async()=>{
+      const file = scenes[sceneIndex] + suffixes[modeIndex] + '.ply';
+      await loadScene(config.baseUrl + file, GaussianSplats3D.SceneFormat.Ply);
+    })();
+  </script>
+</body>
+</html>

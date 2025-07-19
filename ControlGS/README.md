@@ -1,6 +1,6 @@
 # ControlGS Project Page
 
-This repository contains the source code for the [ControlGS project website](https://zhang-fengdi.github.io/ControlGS/), which presents the method **ControlGS: Consistent Quantity–Quality Control across Scenes for Deployment-Aware Gaussian Splatting**.
+This repository contains the source code for the [ControlGS project website](https://zhang-fengdi.github.io/ControlGS/).
 
 The website is based on the [Nerfies project page](https://nerfies.github.io), and reuses their open-source HTML/CSS/JS template.
 
@@ -17,19 +17,6 @@ If you find ControlGS useful for your research or deployment, please consider ci
       url={https://arxiv.org/abs/2505.10473}
 }
 ```
-
-## Usage
-
-To host this webpage locally or deploy it online:
-
-1. Clone this repository:
-
-   ```bash
-   git clone https://github.com/your-username/ControlGS-website.git
-   ```
-2. Open `index.html` in a browser, or deploy to GitHub Pages, Netlify, or any static file host.
-
-All media assets (images, CSS, JS) are stored under the `/static` directory.
 
 ## Acknowledgements
 

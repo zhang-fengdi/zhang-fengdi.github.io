@@ -17,6 +17,11 @@
     gtag('js', new Date());
     gtag('config', 'G-PYVRSFMDRL');
   </script>
+  <style>
+    body {
+      background: #ffffff;
+    }
+  </style>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
@@ -40,20 +45,15 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">
-              Consistent Quantity–Quality Control across Scenes for Deployment-Aware
-              <br> Gaussian Splatting
+            <h1 class="title is-1 publication-title" style="font-size: 38px;">
+              Consistent Quantity–Quality Control across Scenes for Deployment-Aware Gaussian Splatting
             </h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a onclick="return false;"
-                  style="pointer-events: none; cursor: default; color: inherit; text-decoration: none;">Fengdi
-                  Zhang</a><sup>1,2</sup>,
+                Fengdi Zhang</a><sup>1,2</sup>,
               </span>
               <span class="author-block">
-                <a onclick="return false;"
-                  style="pointer-events: none; cursor: default; color: inherit; text-decoration: none;">Hongkun
-                  Cao</a><sup>2</sup>,
+                Hongkun Cao</a><sup>2</sup>,
               </span>
               <span class="author-block">
                 <a href="https://rqhuang88.github.io/">Ruqi Huang</a><sup>1</sup>
@@ -94,61 +94,52 @@
 
 
   <section class="section">
-    <div class="container is-max-desktop">
-      <!-- Abstract. -->
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-              To reduce storage and computational costs, 3D Gaussian splatting (3DGS) seeks to
-              minimize the number of Gaussians used while preserving high rendering quality,
-              introducing an inherent trade-off between Gaussian quantity and rendering quality.
-              Existing methods strive for better quantity–quality performance but lack the ability
-              for users to <em>intuitively adjust</em> this trade-off to suit deployment under diverse hardware
-              and communication constraints. Here, we present <strong>ControlGS</strong>, a 3DGS
-              optimization method that achieves semantically meaningful and cross-scene consistent
-              quantity–quality control.
-              Through a single training run using a fixed setup and a user-specified hyperparameter
-              reflecting quantity–quality preference, <strong>ControlGS</strong> automatically finds desirable
-              trade-off points across scenes—from compact objects to large outdoor environments—outperforms baselines by
-              achieving higher rendering quality with fewer Gaussians,
-              and supports stepless control over the trade-off.
-            </p>
-          </div>
-        </div>
-      </div>
+    <div class="container is-max-desktop" style="text-align:justify; width: 68%; margin-top: -60px;">
+      <p style="font-size: 18px; font-weight: 300; line-height: 1.6;">
+        <strong>TL;DR:</strong> ControlGS introduces a cross-scene quantity-quality control hyperparameter,
+        𝜆<sub>𝛼</sub>, enabling automatic generation of optimized 3DGS scenes based on semantic compression
+        preferences, suitable for cross-scene and cross-device automated deployment.
+      </p>
+    </div>
   </section>
+
+
+  <section class="section">
+    <div class="hero-body" style="margin-top: -100px;">
+      <div class="container is-max-desktop" style="text-align:center">
+        <h2 class="title is-3 has-text-centered" style="margin-bottom: 20px; margin-bottom: 20px;">Interactive Demo</h2>
+        <p style="font-size: 18px; font-weight: 300; margin-top: -3px;"> Adjust 𝜆𝛼 (Lambda) or use “Auto” to auto-select the optimal model based on device performance. </p>
+      </div>
+    </div>
+  </section>
+  <iframe src="demo.html" loading="lazy"
+    style="width: 100%; height: 600px; margin-top: -100px; margin-bottom: -60px;"></iframe>
 
 
   <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-full-width">
-          <div class="hero-body" style="margin-top: -60px;">
+          <div class="hero-body" style="margin-top: -75px;">
             <h2 class="title is-3">Method Overview</h2>
             <img src="./static/images/ControlGS3.png" style="width:90%; height:auto;">
-            <div class="content has-text-justified">
-              <p style="margin-top: 30px; font-size:18px;">
-                <b>Illustration of our proposed ControlGS:</b>
-              </p>
-              <p>
+            <div class="content has-text-justified" style="width: 87%; margin: 0 auto;">
+              <p style="margin-top: 18px; font-size:18px;">
                 Starting from a sparse point cloud reconstructed via SfM, we initialize an
-                anisotropic Gaussian set and alternate between uniform octree-style subdivision
-                and sparsity-driven pruning.
+                anisotropic Gaussian set and alternate between uniform octree-style subdivision and sparsity-driven
+                pruning.
               </p>
               <ul>
                 <li>
-                  <strong>Uniform Gaussian Branching:</strong> Whenever the number of pruned
-                  Gaussians falls below a threshold, we split <em>all</em> surviving Gaussians
-                  into eight children in an octree fashion—inheriting parent attributes to
-                  achieve a coarse-to-fine frequency progression without scene-specific heuristics.
+                  <strong>Uniform Gaussian Branching:</strong> Whenever the number of pruned Gaussians falls below a
+                  threshold, we split <em>all</em> surviving Gaussians into eight children in an octree
+                  fashion—inheriting parent attributes to achieve a coarse-to-fine frequency progression without
+                  scene-specific heuristics.
                 </li>
                 <li>
-                  <strong>Gaussian Atrophy:</strong> We add an L1 opacity regularization that
-                  applies a constant negative gradient to each Gaussian’s opacity, causing
-                  low-contribution Gaussians to “self-shrink” and be removed once their opacity
-                  drops below a threshold.
+                  <strong>Gaussian Atrophy:</strong> We add an L1 opacity regularization that applies a constant
+                  negative gradient to each Gaussian’s opacity, causing low-contribution Gaussians to “self-shrink” and
+                  be removed once their opacity drops below a threshold.
                 </li>
               </ul>
               <p>
@@ -164,7 +155,10 @@
                 </li>
               </ul>
               <p>
-                By training only once under a fixed setup and adjusting 𝜆<sub>𝛼</sub>, <strong>ControlGS</strong> enable a <strong>consistent</strong>, <strong>stepless</strong>, and <strong>linear</strong> trade-off control between Gaussian quantity and rendering quality across diverse scenes, facilitating the efficient generation of multiple model variants tailored to diverse deployment needs.
+                By training only once under a fixed setup and adjusting 𝜆<sub>𝛼</sub>, <strong>ControlGS</strong>
+                enable a <strong>consistent</strong>, <strong>stepless</strong>, and <strong>linear</strong> trade-off
+                control between Gaussian quantity and rendering quality across diverse scenes, facilitating the
+                efficient generation of multiple model variants tailored to diverse deployment needs.
               </p>
               </p>
             </div>
@@ -178,70 +172,49 @@
   <section class="section">
     <div class="hero-body" style="margin-top: -110px;">
       <div class="container is-max-desktop" style="text-align:left">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 40px">Results</h2>
-        <h3 class="title is-4">Quantity–Quality Control Performance</h3>
-        <p style="font-size:18px; font-weight: 300;">
-          <strong>ControlGS</strong> achieves <strong>smooth</strong>, <strong>stepless</strong>, and <strong>predictable</strong> control over the
-          trade-off between rendering quality and Gaussian quantity across diverse scenes,
-          including high-fidelity reconstructions and highly compressed models, and significantly
-          outperforms baseline methods in control consistency, range, and precision.
-        </p>
-        <br>
+        <h2 class="title is-3 has-text-centered" style="margin-bottom: 20px; margin-top: -43px;">
+          Results
+        </h2>
+        <div class="content has-text-justified" style="width: 85%; margin: 0 auto;">
+          <h3 class="title is-4">Quantity–Quality Control Performance</h3>
+          <p style="font-size:18px; font-weight: 300;">
+            <strong>ControlGS</strong> achieves <strong>smooth</strong>, <strong>stepless</strong>, and
+            <strong>predictable</strong> control over the trade-off between rendering quality and Gaussian quantity
+            across diverse scenes, including high-fidelity reconstructions and highly compressed models, and
+            significantly outperforms baseline methods in control consistency, range, and precision.
+          </p>
+          <br>
+        </div>
         <div class="content has-text-centered" style="width: 90%; margin: auto;">
-          <img src="./static/images/ControlGS5.png" style="width:100%; height:auto;">
+          <img src="./static/images/ControlGS5.png" style="width:100%; height:auto; margin-top: -20px">
         </div>
       </div>
       <div class="container is-max-desktop" style="text-align:left; margin-top: 30px;">
-        <h3 class="title is-4">Comparison with SOTA method</h3>
-        <p style="font-size:18px; font-weight: 300;">
-          Compared to existing methods, <strong>ControlGS</strong> achieves <strong>higher rendering quality
-          with fewer Gaussians</strong> on unseen test views, consistently preserving intricate structures
-          and high-frequency textures across diverse scenes.
-        </p>
-        <br>
-        <div class="content has-text-centered" style="width: 99%; margin: auto;">
-          <img src="./static/images/ControlGS6.jpeg" style="width:100%; height:auto;">
+        <div class="content has-text-justified" style="width: 85%; margin: 0 auto;">
+          <h3 class="title is-4">Comparison with SOTA method</h3>
+          <p style="font-size:18px; font-weight: 300;">
+            Compared to existing methods, <strong>ControlGS</strong> achieves <strong>higher rendering quality with
+              fewer Gaussians</strong> on unseen test views, consistently preserving intricate structures and
+            high-frequency textures across diverse scenes.
+          </p>
+          <br>
+          <div class="content has-text-centered" style="width: 99%; margin: auto;">
+            <img src="./static/images/ControlGS6.jpeg"
+              style="width:100%; height:auto; margin-top: -20px; margin-bottom: -80px;">
+          </div>
         </div>
       </div>
     </div>
   </section>
 
 
-  <section class="section">
-    <div class="hero-body" style="margin-top: -110px;">
-      <div class="container is-max-desktop" style="text-align:left">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 40px">Interactive Demo (Coming Soon)</h2>
-        <p style="font-size: 18px; font-weight: 300;">
-          We are building an interactive demo system that will
-          <strong>automatically detect your device’s performance</strong> and display
-          <strong>3DGS models from various scenes</strong>, each optimized for the
-          <strong>best quantity–quality balance</strong> on your device.
-        </p>
-        <br>
-        <p style="font-size: 18px; font-weight: 300;">
-          You will also be able to
-          <strong>manually select different trade-off points</strong> to explore how
-          <strong>different scenes perform under varying quantity–quality settings</strong>.
-        </p>
-        <br>
-        <p style="font-size: 18px; font-weight: 400;">
-          This demo is currently under development and
-          <strong>will be available soon</strong>.
-        </p>
-      </div>
-    </div>
-  </section>
-
-
-
-  <footer class="footer">
+  <footer class="footer" style="padding: 10px 0; min-height: 30px;">
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-8">
           <div class="content has-text-centered">
-            <p>
-              We thank the authors of
-              <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a>
+            <p style="margin-top: 1px;">
+              We thank the authors of <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a>
               for generously open-sourcing the template used for this website.
             </p>
           </div>
@@ -249,7 +222,6 @@
       </div>
     </div>
   </footer>
-
 </body>
 
 </html>
