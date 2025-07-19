@@ -108,21 +108,29 @@
     <div class="hero-body" style="margin-top: -100px;">
       <div class="container is-max-desktop" style="text-align:center">
         <h2 class="title is-3 has-text-centered" style="margin-bottom: 20px; margin-bottom: 20px;">Interactive Demo</h2>
-        <p style="font-size: 18px; font-weight: 300; margin-top: -3px;"> Adjust 𝜆<sub>𝛼</sub> (Lambda) or use “Auto” to auto-select the optimal model based on device performance. </p>
+        <p style="font-size: 18px; font-weight: 300; margin-top: -3px;"> Adjust 𝜆<sub>𝛼</sub> (Lambda) or use “Auto”
+          to auto-select the optimal model based on device performance. </p>
       </div>
     </div>
   </section>
   <iframe src="demo.html" loading="lazy"
     style="width: 100%; height: 600px; margin-top: -100px; margin-bottom: -60px;"></iframe>
+  <div class="container is-max-desktop" style="margin-top: -31px">
+    <p style="font-size: 15px; color: #888; text-align:center;">
+      <strong>Note:</strong> Online rendering may differ. Refer to the <a
+        href="https://github.com/graphdeco-inria/gaussian-splatting" target="_blank">official viewer</a> for accurate
+      results.
+    </p>
+  </div>
 
 
   <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-full-width">
-          <div class="hero-body" style="margin-top: -75px;">
+          <div class="hero-body" style="margin-top: -45px;">
             <h2 class="title is-3">Method Overview</h2>
-            <img src="./static/images/ControlGS3.png" style="width:90%; height:auto;">
+            <img src="./static/images/ControlGS3.png" style="width:90%; height:auto; margin-top: -3px;">
             <div class="content has-text-justified" style="width: 87%; margin: 0 auto;">
               <p style="margin-top: 18px; font-size:18px;">
                 Starting from a sparse point cloud reconstructed via SfM, we initialize an

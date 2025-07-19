@@ -245,7 +245,7 @@
     import { getRenderScores } from './js/performanceScores.js';  // 导入性能评分函数
 
     const config = {
-      baseUrl: 'https://controlgs-data-1369614263.cos.ap-guangzhou.myqcloud.com/',
+      baseUrl: 'https://controlgs-data-1369614263.cos.ap-guangzhou.myqcloud.com/ksplat_data/',
       scenes: ['bicycle','bonsai','playroom','chair','lego'],
       suffixes: ['_1e-7','_2e-7','_3e-7','_4e-7','_5e-7','_6e-7','_7e-7','_8e-7','_9e-7','_1e-6'],
       modeLabels: ['1e-7','2e-7','3e-7','4e-7','5e-7','6e-7','7e-7','8e-7','9e-7','1e-6'],
@@ -384,8 +384,8 @@
     }
 
     (async()=>{
-      const file = scenes[sceneIndex] + suffixes[modeIndex] + '.ply';
-      await loadScene(config.baseUrl + file, GaussianSplats3D.SceneFormat.Ply);
+      const file = scenes[sceneIndex] + suffixes[modeIndex] + '.ksplat';
+      await loadScene(config.baseUrl + file, GaussianSplats3D.SceneFormat.KSplat);
     })();
   </script>
 </body>
