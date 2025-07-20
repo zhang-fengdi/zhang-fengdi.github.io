@@ -2,8 +2,6 @@
 
 This repository contains the source code for the [ControlGS project website](https://zhang-fengdi.github.io/ControlGS/).
 
-The website is based on the [Nerfies project page](https://nerfies.github.io), and reuses their open-source HTML/CSS/JS template.
-
 If you find ControlGS useful for your research or deployment, please consider citing our paper:
 
 ```bibtex
@@ -20,7 +18,7 @@ If you find ControlGS useful for your research or deployment, please consider ci
 
 ## Acknowledgements
 
-This website template was adapted from the excellent [Nerfies website](https://nerfies.github.io), which is open-sourced by its authors.
+The website template was adapted from the open-source [Nerfies](https://nerfies.github.io) website, and the interactive demo on the website is based on the web 3DGS renderer provided by the [GaussianSplats3D](https://github.com/mkkellogg/GaussianSplats3D)  project.
 
 ## Website License
 
