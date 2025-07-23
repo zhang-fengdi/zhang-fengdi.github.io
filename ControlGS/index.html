@@ -88,7 +88,8 @@
                 </span>
                 <!-- Results Link. -->
                 <span class="link-block">
-                  <a href="https://zenodo.org/records/16306615" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://zenodo.org/records/16306615"
+                    class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="ai ai-open-access"></i>
                     </span>
@@ -105,12 +106,18 @@
 
 
   <section class="section">
-    <div class="container is-max-desktop" style="text-align:justify; width: 68%; margin-top: -60px;">
-      <p style="font-size: 18px; font-weight: 300; line-height: 1.6;">
-        <strong>TL;DR:</strong> ControlGS introduces a cross-scene quantity-quality control hyperparameter,
-        𝜆<sub>𝛼</sub>, enabling automatic generation of optimized 3DGS scenes based on semantic compression
-        preferences, suitable for cross-scene and cross-device automated deployment.
-      </p>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <div class="container is-max-desktop" style="text-align:justify; width: 85%; margin-top: -60px;">
+            <p style="font-size: 18px; font-weight: 300; line-height: 1.6;">
+              <strong>TL;DR:</strong> <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> introduces a cross-scene quantity-quality control hyperparameter,
+              𝜆<sub>𝛼</sub>, enabling automatic generation of optimized 3DGS scenes based on semantic compression
+              preferences, suitable for cross-scene and cross-device automated deployment.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -141,18 +148,18 @@
         <div class="column is-full-width">
           <div class="hero-body" style="margin-top: -45px;">
             <h2 class="title is-3">Method Overview</h2>
-            <img src="./static/images/ControlGS3.png" style="width:90%; height:auto; margin-top: -3px;">
-            <div class="content has-text-justified" style="width: 87%; margin: 0 auto;">
+            <img src="./static/images/ControlGS3.png" style="width:90.8%; height:auto; margin-top: -3px;">
+            <div class="content has-text-justified" style="width: 89%; margin: 0 auto;">
               <p style="margin-top: 18px; font-size:18px;">
-                Starting from a sparse point cloud reconstructed via SfM, we initialize an
+                Starting from a sparse point cloud reconstructed via SfM, <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> initialize an
                 anisotropic Gaussian set and alternate between uniform octree-style subdivision and sparsity-driven
-                pruning.
+                pruning:
               </p>
-              <ul>
+              <ul style="font-size:17px;">
                 <li>
                   <strong>Uniform Gaussian Branching:</strong> Whenever the number of pruned Gaussians falls below a
-                  threshold, we split <em>all</em> surviving Gaussians into eight children in an octree
-                  fashion—inheriting parent attributes to achieve a coarse-to-fine frequency progression without
+                  threshold, we split <strong>all</strong> surviving Gaussians into eight children in an octree
+                  fashion, inheriting parent attributes to achieve a coarse-to-fine frequency progression without
                   scene-specific heuristics.
                 </li>
                 <li>
@@ -161,11 +168,11 @@
                   be removed once their opacity drops below a threshold.
                 </li>
               </ul>
-              <p>
-                The <strong>controllable</strong> core of <strong>ControlGS</strong> is a single hyperparameter,
+              <p style="font-size:18px;">
+                The <strong>controllable</strong> core of <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> is a single hyperparameter,
                 𝜆<sub>𝛼</sub>, which scales the atrophy loss:
               </p>
-              <ul>
+              <ul style="font-size:17px;">
                 <li>
                   Increasing 𝜆<sub>𝛼</sub> strengthens pruning, yielding more compact models;
                 </li>
@@ -173,12 +180,13 @@
                   Decreasing 𝜆<sub>𝛼</sub> preserves more Gaussians for higher-fidelity rendering.
                 </li>
               </ul>
-              <p>
-                By training only once under a fixed setup and adjusting 𝜆<sub>𝛼</sub>, <strong>ControlGS</strong>
-                enable a <strong>consistent</strong>, <strong>stepless</strong>, and <strong>linear</strong> trade-off
-                control between Gaussian quantity and rendering quality across diverse scenes, facilitating the
-                efficient generation of multiple model variants tailored to diverse deployment needs.
-              </p>
+              <p style="font-size:18px;">
+                By selecting a 𝜆<sub>𝛼</sub> reflecting the quantity–quality preference and training once under a
+                fixed
+                setup, <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> enables <strong>consistent</strong>, <strong>wide-range</strong>,
+                <strong>stepless</strong> trade-off control between Gaussian quantity and rendering quality,
+                facilitating
+                the efficient generation of multiple model variants tailored to diverse deployment needs.
               </p>
             </div>
           </div>
@@ -197,7 +205,7 @@
         <div class="content has-text-justified" style="width: 85%; margin: 0 auto;">
           <h3 class="title is-4">Quantity–Quality Control Performance</h3>
           <p style="font-size:18px; font-weight: 300;">
-            <strong>ControlGS</strong> achieves <strong>smooth</strong>, <strong>stepless</strong>, and
+            <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> achieves <strong>smooth</strong>, <strong>stepless</strong>, and
             <strong>predictable</strong> control over the trade-off between rendering quality and Gaussian quantity
             across diverse scenes, including high-fidelity reconstructions and highly compressed models, and
             significantly outperforms baseline methods in control consistency, range, and precision.
@@ -212,7 +220,7 @@
         <div class="content has-text-justified" style="width: 85%; margin: 0 auto;">
           <h3 class="title is-4">Comparison with SOTA method</h3>
           <p style="font-size:18px; font-weight: 300;">
-            Compared to existing methods, <strong>ControlGS</strong> achieves <strong>higher rendering quality with
+            Compared to existing methods, <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> achieves <strong>higher rendering quality with
               fewer Gaussians</strong> on unseen test views, consistently preserving intricate structures and
             high-frequency textures across diverse scenes.
           </p>
