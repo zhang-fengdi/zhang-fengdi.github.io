@@ -224,12 +224,16 @@
     <div id="viewer-container">
       <div id="control-hint">
         <span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="16" x2="12" y2="12"></line>
-            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-          </svg>
+            <path d="M9.09 9a3 3 0 015.82 1c0 2-3 2-3 4"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>&nbsp;
+          <div style="margin-top:0px; margin-right:1.5px; font-size:12px;">
+            Help
+          </div>
         </span>
         <div id="control-tooltip">
           <ul>
@@ -237,9 +241,9 @@
             <li><kbd>LMB</kbd> Set focal point</li>
             <li><kbd>LMB</kbd> + drag Orbit</li>
             <li><kbd>RMB</kbd> + drag Pan</li>
-            <li><strong>Keys:</strong></li>
+            <li><strong>Keyboard:</strong></li>
+            <li><kbd>I</kbd> Toggle info panel (FPS etc.)</li>
             <li><kbd>C</kbd> Toggle cursor</li>
-            <li><kbd>I</kbd> Toggle info panel</li>
             <li><kbd>U</kbd> Toggle debug axes</li>
             <li><kbd>←</kbd>/ <kbd>→</kbd> Rotate up vector</li>
             <li><kbd>P</kbd> Point-cloud mode</li>

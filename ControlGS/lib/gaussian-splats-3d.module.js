@@ -6532,7 +6532,7 @@ class InfoPanel {
             ['Camera mode', 'orthographicCamera'],
             ['Cursor position', 'cursorPosition'],
             ['FPS', 'fps'],
-            ['Rendering:', 'renderSplatCount'],
+            ['Rendering', 'renderSplatCount'],
             ['Sort time', 'sortTime'],
             ['Render window', 'renderWindow'],
             ['Focal adjustment', 'focalAdjustment'],
