@@ -231,7 +231,7 @@
             <path d="M9.09 9a3 3 0 015.82 1c0 2-3 2-3 4"></path>
             <line x1="12" y1="17" x2="12.01" y2="17"></line>
           </svg>&nbsp;
-          <div style="margin-top:0px; margin-right:1.5px; font-size:12px;">
+          <div style="margin-top:-2.5px; margin-right:1.5px; font-size:12px;">
             Help
           </div>
         </span>
@@ -272,8 +272,8 @@
         { position: [-1.27716, 0.53441, -0.83316], lookAt: [0.71582, 1.70817, 0.55085], cameraUp: [-0.04772, -0.97936, -0.19643], backgroundColor: '#000' },
         { position: [1.74473, 2.20126, -0.96763], lookAt: [0.46452, 1.82883, 1.45494], cameraUp: [-0.14246, -0.92664, -0.34792], backgroundColor: '#000' },
         { position: [-2.17826, 2.60359, -0.79266], lookAt: [0.4, 1.9, 1.4], cameraUp: [-0.11294, -0.87587, -0.46914], backgroundColor: '#000' },
-        { position: [0.11316, -2.48177, 0.93802], lookAt: [0.03972, 0.33785, -0.20732], cameraUp: [0.01468, 0.07312, 0.99722], backgroundColor: '#fff' },
-        { position: [0.0098, 2.482, 1.32968], lookAt: [0.07897, -0.17354, -0.17532], cameraUp: [-0.02215, 0.45802, 0.88866], backgroundColor: '#fff' }
+        { position: [-0.73275, -0.69019, 1.21661], lookAt: [0.03972, 0.33785, -0.20732], cameraUp: [0.01468, 0.07312, 0.99722], backgroundColor: '#fff' },
+        { position: [1.49889, 0.23060, 0.54964], lookAt: [-0.02015, 0.10616, -0.08192], cameraUp: [-0.01777, 0.05623, 0.99826], backgroundColor: '#fff' }
       ],
       gaussianCounts: {
         bicycle: [1.944, 1.214, 0.907, 0.696, 0.571, 0.460, 0.371, 0.326, 0.275, 0.241],
@@ -314,7 +314,8 @@
       cameraUp: sceneCameraPositions[sceneIndex].cameraUp,
       initialCameraPosition: sceneCameraPositions[sceneIndex].position,
       initialCameraLookAt: sceneCameraPositions[sceneIndex].lookAt,
-      sphericalHarmonicsDegree: 2
+      sphericalHarmonicsDegree: 2,
+      kernel2DSize: 0.9
     });
     viewer.renderer.setClearColor(sceneCameraPositions[sceneIndex].backgroundColor);
     viewer.start();
