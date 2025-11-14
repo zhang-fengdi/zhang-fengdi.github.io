@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-    content="ControlGS presents a method for consistent quantity–quality control across diverse scenes in 3D Gaussian Splatting, enabling deployment-aware optimization with a single hyperparameter.">
-  <meta name="keywords" content="ControlGS, Gaussian Splatting, 3DGS, Quantity-Quality Control">
+  <meta name="description" content="ControlGS introduces a control-oriented method for optimizing 3D Gaussian Splatting (3DGS) models, offering adjustable control of model compactness and rendering quality across diverse scenes.">
+  <meta name="keywords" content="novel view synthesis, 3D Gaussian splatting (3DGS), structural compression, controllable compression, cross-scene consistency, Gaussian count–rendering quality trade-off">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ControlGS Project Page</title>
 
@@ -17,9 +16,14 @@
     gtag('js', new Date());
     gtag('config', 'G-PYVRSFMDRL');
   </script>
+
   <style>
     body {
       background: #ffffff;
+    }
+
+    .controlgs-accent {
+      color: rgb(122, 163, 0);
     }
   </style>
 
@@ -46,13 +50,17 @@
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <h1 class="title is-1 publication-title" style="font-size: 38px;">
-              Consistent Quantity–Quality <span style="color: rgb(122, 163, 0);">Control</span> across Scenes for
-              Deployment-Aware <span style="color: rgb(122, 163, 0);">G</span>aussian <span
-                style="color: rgb(122, 163, 0);">S</span>platting
+              <span class="controlgs-accent">ControlGS</span>: Consistent Structural Compression
+              <span class="controlgs-accent">Control</span> for Deployment-Aware
+              <span class="controlgs-accent">G</span>aussian
+              <span class="controlgs-accent">S</span>platting
             </h1>
             <div class="is-size-5 publication-authors" style="margin-top: -12px;">
               <span class="author-block">
                 <a href="https://github.com/zhang-fengdi">Fengdi Zhang</a><sup>1,2</sup>,
+              </span>
+              <span class="author-block">
+                Yibao Sun<sup>2</sup>,
               </span>
               <span class="author-block">
                 Hongkun Cao<sup>2</sup>,
@@ -78,8 +86,7 @@
                 </span>
                 <!-- Code Link. -->
                 <span class="link-block">
-                  <a href="https://github.com/zhang-fengdi/ControlGS"
-                    class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://github.com/zhang-fengdi/ControlGS" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
                     </span>
@@ -88,12 +95,11 @@
                 </span>
                 <!-- Results Link. -->
                 <span class="link-block">
-                  <a href="https://zenodo.org/records/16306615"
-                    class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://zenodo.org/records/17548899" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="ai ai-open-access"></i>
                     </span>
-                    <span>Results</span>
+                    <span>Models</span>
                   </a>
                 </span>
               </div>
@@ -104,16 +110,17 @@
     </div>
   </section>
 
-
   <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-full-width">
           <div class="container is-max-desktop" style="text-align:justify; width: 85%; margin-top: -60px;">
             <p style="font-size: 18px; font-weight: 300; line-height: 1.6;">
-              <strong>TL;DR:</strong> <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> introduces a cross-scene quantity-quality control hyperparameter,
-              𝜆<sub>𝛼</sub>, enabling automatic generation of optimized 3DGS scenes based on semantic compression
-              preferences, suitable for cross-scene and cross-device automated deployment.
+              <strong>TL;DR:</strong>
+              <strong><span class="controlgs-accent">ControlGS</span></strong> introduces a cross-scene consistent structural compression
+              control mechanism for 3DGS optimization. By adjusting the control hyperparameter 𝜆<sub>𝛼</sub>, ControlGS
+              can flexibly generate models biased toward either structural compactness or high fidelity, regardless of
+              the specific scene scale or complexity, suitable for cross-device automated deployment.
             </p>
           </div>
         </div>
@@ -121,26 +128,31 @@
     </div>
   </section>
 
-
   <section class="section">
     <div class="hero-body" style="margin-top: -100px;">
       <div class="container is-max-desktop" style="text-align:center">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 20px; margin-bottom: 20px;">Interactive Demo</h2>
-        <p style="font-size: 18px; font-weight: 300; margin-top: -3px;"> Adjust 𝜆<sub>𝛼</sub> (Lambda) or use “Auto”
-          to auto-select the optimal model based on device performance. </p>
+        <h2 class="title is-3 has-text-centered" style="margin-bottom: 20px;">Interactive Demo</h2>
+        <p style="font-size: 18px; font-weight: 300; margin-top: -3px;">
+          Adjust 𝜆<sub>𝛼</sub> (Lambda) or use “Auto” to auto-select the optimal model based on device performance.
+        </p>
       </div>
     </div>
   </section>
-  <iframe src="demo.html" loading="lazy"
-    style="width: 100%; height: 600px; margin-top: -100px; margin-bottom: -60px;"></iframe>
+
+  <iframe
+    src="demo.html"
+    loading="lazy"
+    style="width: 100%; height: 600px; margin-top: -100px; margin-bottom: -60px;">
+  </iframe>
+
   <div class="container is-max-desktop" style="margin-top: -31px">
     <p style="font-size: 15px; color: #888; text-align:center;">
-      <strong style="color: #7c7c7c;">Note:</strong> Browser rendering of 3DGS scenes may differ. Refer to the <a
-        href="https://github.com/graphdeco-inria/gaussian-splatting" target="_blank">official viewer</a> for accurate
-      results.
+      <strong style="color: #7c7c7c;">Note:</strong>
+      Browser rendering of 3DGS scenes may differ. Refer to the
+      <a href="https://github.com/graphdeco-inria/gaussian-splatting" target="_blank">official viewer</a>
+      for accurate results.
     </p>
   </div>
-
 
   <section class="section">
     <div class="container is-max-desktop">
@@ -148,53 +160,44 @@
         <div class="column is-full-width">
           <div class="hero-body" style="margin-top: -45px;">
             <h2 class="title is-3">Method Overview</h2>
-            <img src="./static/images/ControlGS3.png" style="width:90.8%; height:auto; margin-top: -3px;">
+            <img
+              src="./static/images/ControlGS1.png"
+              alt="ControlGS Method Overview"
+              style="width:90.8%; height:auto; margin-top: -3px;">
             <div class="content has-text-justified" style="width: 89%; margin: 0 auto;">
               <p style="margin-top: 18px; font-size:18px;">
-                Starting from a sparse point cloud reconstructed via SfM, <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> initialize an
-                anisotropic Gaussian set and alternate between uniform octree-style subdivision and sparsity-driven
-                pruning:
+                Starting from a sparse point cloud reconstructed via SfM,
+                <strong><span class="controlgs-accent">ControlGS</span></strong> initialize an Gaussian set and alternate between
+                <strong>Uniform Splitting</strong> and pruning based on <strong>Opacity-based Sparsification</strong>:
               </p>
               <ul style="font-size:17px;">
                 <li>
-                  <strong>Uniform Gaussian Branching:</strong> Whenever the number of pruned Gaussians falls below a
-                  threshold, we split <strong>all</strong> surviving Gaussians into eight children in an octree
-                  fashion, inheriting parent attributes to achieve a coarse-to-fine frequency progression without
+                  <strong>Uniform Splitting:</strong> Whenever the number of pruned Gaussians falls below a threshold,
+                  we split <strong>all</strong> surviving Gaussians into eight children in an octree fashion,
+                  inheriting parent attributes to achieve a coarse-to-fine frequency progression without
                   scene-specific heuristics.
                 </li>
                 <li>
-                  <strong>Gaussian Atrophy:</strong> We add an L1 opacity regularization that applies a constant
-                  negative gradient to each Gaussian’s opacity, causing low-contribution Gaussians to “self-shrink” and
-                  be removed once their opacity drops below a threshold.
+                  <strong>Opacity-based Sparsification:</strong> We add an <em>L<sub>1</sub></em> opacity regularization that
+                  applies a constant negative gradient to each Gaussian’s opacity, causing low-contribution Gaussians to
+                  “self-shrink” and be removed once their opacity drops below a threshold.
                 </li>
               </ul>
               <p style="font-size:18px;">
-                The <strong>controllable</strong> core of <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> is a single hyperparameter,
-                𝜆<sub>𝛼</sub>, which scales the atrophy loss:
+                The <strong>controllable</strong> core of
+                <strong><span class="controlgs-accent">ControlGS</span></strong> is a single hyperparameter, 𝜆<sub>𝛼</sub>,
+                which scales the <em>L<sub>1</sub></em> loss:
               </p>
               <ul style="font-size:17px;">
-                <li>
-                  Increasing 𝜆<sub>𝛼</sub> strengthens pruning, yielding more compact models;
-                </li>
-                <li>
-                  Decreasing 𝜆<sub>𝛼</sub> preserves more Gaussians for higher-fidelity rendering.
-                </li>
+                <li>Increasing 𝜆<sub>𝛼</sub> strengthens pruning, yielding more structural compact models;</li>
+                <li>Decreasing 𝜆<sub>𝛼</sub> preserves more Gaussians for higher-fidelity rendering.</li>
               </ul>
-              <p style="font-size:18px;">
-                By selecting a 𝜆<sub>𝛼</sub> reflecting the quantity–quality preference and training once under a
-                fixed
-                setup, <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> enables <strong>consistent</strong>, <strong>wide-range</strong>,
-                <strong>stepless</strong> trade-off control between Gaussian quantity and rendering quality,
-                facilitating
-                the efficient generation of multiple model variants tailored to diverse deployment needs.
-              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
 
   <section class="section">
     <div class="hero-body" style="margin-top: -110px;">
@@ -203,30 +206,40 @@
           Results
         </h2>
         <div class="content has-text-justified" style="width: 85%; margin: 0 auto;">
-          <h3 class="title is-4">Quantity–Quality Control Performance</h3>
+          <h3 class="title is-4">Structural Compression Control Performance</h3>
           <p style="font-size:18px; font-weight: 300;">
-            <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> achieves <strong>smooth</strong>, <strong>stepless</strong>, and
-            <strong>predictable</strong> control over the trade-off between rendering quality and Gaussian quantity
-            across diverse scenes, including high-fidelity reconstructions and highly compressed models, and
-            significantly outperforms baseline methods in control consistency, range, and precision.
+            <strong><span class="controlgs-accent">ControlGS</span></strong> achieves <strong>continuous</strong>,
+            <strong>scene-agnostic</strong>, and <strong>highly responsive</strong> control over the trade-off between
+            model structural compactness and rendering quality. The figure below shows how the ControlGS hyperparameter
+            𝜆<sub>𝛼</sub> (x-axis) consistently influences rendering quality (y-axis) and the number of Gaussians (dot
+            size) across diverse scenes, ranging from small objects to large outdoor scenes.
+            <em>For more detailed results, please refer to the paper.</em>
           </p>
           <br>
         </div>
-        <div class="content has-text-centered" style="width: 90%; margin: auto;">
-          <img src="./static/images/ControlGS5.png" style="width:100%; height:auto; margin-top: -20px">
+        <div class="content has-text-centered" style="width: 50%; margin: auto;">
+          <img
+            src="./static/images/ControlGS2.png"
+            alt="Structural compression control performance"
+            style="width:100%; height:auto; margin-top: -20px;">
         </div>
       </div>
+
       <div class="container is-max-desktop" style="text-align:left; margin-top: 30px;">
         <div class="content has-text-justified" style="width: 85%; margin: 0 auto;">
-          <h3 class="title is-4">Comparison with SOTA method</h3>
+          <h3 class="title is-4">Comparison with competing method</h3>
           <p style="font-size:18px; font-weight: 300;">
-            Compared to existing methods, <strong><span style="color: rgb(122, 163, 0);">ControlGS</span></strong> achieves <strong>higher rendering quality with
-              fewer Gaussians</strong> on unseen test views, consistently preserving intricate structures and
-            high-frequency textures across diverse scenes.
+            <strong><span class="controlgs-accent">ControlGS</span></strong> achieves
+            <strong>higher rendering quality with fewer Gaussians</strong> on unseen test views, consistently preserving
+            intricate structures and high-frequency textures across diverse scenes. The number of Gaussians used is
+            indicated at the bottom-right corner of each subfigure below.
+            <em>For more detailed results, please refer to the paper.</em>
           </p>
           <br>
           <div class="content has-text-centered" style="width: 99%; margin: auto;">
-            <img src="./static/images/ControlGS6.jpeg"
+            <img
+              src="./static/images/ControlGS3.jpeg"
+              alt="Qualitative comparison with competing method"
               style="width:100%; height:auto; margin-top: -20px; margin-bottom: -80px;">
           </div>
         </div>
@@ -234,20 +247,18 @@
     </div>
   </section>
 
-
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content" style="max-width: 810px;">
       <h2 class="title">BibTeX</h2>
-      <pre>
-      <code>@article{zhang2025consistent,
-        title={Consistent Quantity-Quality Control across Scenes for Deployment-Aware Gaussian Splatting},
-        author={Zhang, Fengdi and Cao, Hongkun and Huang, Ruqi},
-        journal={arXiv preprint arXiv:2505.10473},
-        year={2025}
-      }</code></pre>
+    <pre>
+    <code>@article{zhang2025controlgs,
+      title={ControlGS: Consistent Structural Compression Control for Deployment-Aware Gaussian Splatting},
+      author={Zhang, Fengdi and Sun, Yibao and Cao, Hongkun and Huang, Ruqi},
+      journal={arXiv preprint arXiv:2505.10473},
+      year={2025}
+    }</code></pre>
     </div>
   </section>
-
 
   <footer class="footer" style="padding: 10px 0; min-height: 30px;">
     <div class="container">
@@ -255,9 +266,11 @@
         <div class="column is-10">
           <div class="content has-text-centered">
             <p style="margin-top: 2px;">
-              This website is built on top of the <a href="https://nerfies.github.io/" target="_blank"
-                rel="noopener">Nerfies template</a> and uses <a href="https://github.com/mkkellogg/GaussianSplats3D"
-                target="_blank" rel="noopener">GaussianSplats3D</a> for the web 3DGS renderer.
+              This website is built on top of the
+              <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies template</a>
+              and uses
+              <a href="https://github.com/mkkellogg/GaussianSplats3D" target="_blank" rel="noopener">GaussianSplats3D</a>
+              for the web 3DGS renderer.
             </p>
           </div>
         </div>
